@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
+    id 'com.heroku.sdk.heroku-gradle' version '1.0.4'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -34,4 +35,10 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+heroku {
+    appName = 'fp-notification-api'
+    includes = ['system.properties']
+    processTypes(web: 'java -jar build/libs/*.jar')
 }
