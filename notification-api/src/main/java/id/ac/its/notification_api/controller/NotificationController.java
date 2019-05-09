@@ -2,8 +2,12 @@ package id.ac.its.notification_api.controller;
 
 import id.ac.its.notification_api.service.ApnService;
 import id.ac.its.notification_api.service.FcmService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,11 +21,13 @@ public class NotificationController {
         this.fcmService = fcmService;
     }
 
-    @PostMapping("/account/{accountId}")
-    public void sendNotificationToAccount(@PathVariable UUID accountId,
-                                          @RequestParam String title,
-                                          @RequestParam String body) {
-        apnService.sendNotification(accountId, title, body);
-        fcmService.sendNotification(accountId, title, body);
+    @PostMapping("/account")
+    public void sendToAccounts(@RequestParam("accounts") List<UUID> accountIds,
+                               @RequestParam String title,
+                               @RequestParam String body) {
+        accountIds.forEach(accountId -> {
+            apnService.sendNotification(accountId, title, body);
+            fcmService.sendNotification(accountId, title, body);
+        });
     }
 }
