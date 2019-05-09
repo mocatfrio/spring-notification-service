@@ -1,0 +1,25 @@
+application:
+  apn:
+    certificate: classpath:.authorization/.certificate.p12
+    password:
+    bundleId: id.ac.its.my.wali
+  fcm:
+    credentials: classpath:.authorization/.credentials.json
+  security:
+    secret: ${SECRET:n2r5u8x/A%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQeThWmZq4t7w!z%C*F-J@NcRf}
+server:
+  port: ${PORT:8080}
+spring:
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}

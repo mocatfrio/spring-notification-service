@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "819040189241",
+    "firebase_url": "https://kuliah-pbkk.firebaseio.com",
+    "project_id": "kuliah-pbkk",
+    "storage_bucket": "kuliah-pbkk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819040189241:android:d70e217624f1e2b3",
+        "android_client_info": {
+          "package_name": "id.ac.its.restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819040189241-3t0qpnpqnb9ukhodfessdst2oinikfnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhDNiqo6F_sBbmhM1R8AWUYYAZMePSfhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819040189241-3t0qpnpqnb9ukhodfessdst2oinikfnl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
