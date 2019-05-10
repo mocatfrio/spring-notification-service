@@ -1,8 +1,6 @@
 package id.ac.its.notification_api.model;
 
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,8 +20,7 @@ public class Account implements UserDetails {
     private String username;
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
-    @OneToMany(mappedBy = "account")
-    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Authority> authorities;
 
     @Override

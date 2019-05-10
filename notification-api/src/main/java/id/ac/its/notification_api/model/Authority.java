@@ -16,7 +16,7 @@ public class Authority implements GrantedAuthority {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Account account;
 
     @Override
