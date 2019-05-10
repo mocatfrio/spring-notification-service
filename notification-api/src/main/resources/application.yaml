@@ -1,10 +1,10 @@
 application:
   apn:
-    certificate: classpath:.authorization/.certificate.p12
+    certificate: classpath:files/certificate.p12
     password:
     bundleId: id.ac.its.my.wali
   fcm:
-    credentials: classpath:.authorization/.credentials.json
+    credentials: classpath:files/credentials.json
   security:
     secret: ${SECRET:n2r5u8x/A%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQeThWmZq4t7w!z%C*F-J@NcRf}
 server:
