@@ -1,13 +1,10 @@
 package id.ac.its.notification_api.service;
 
 import id.ac.its.notification_api.dao.AccountDao;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -19,7 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var account = accountDao.getByUsername(username);
-        return new User(account.getUsername(), account.getPasswordHash(), Collections.emptyList());
+        return accountDao.getByUsername(username);
     }
 }
