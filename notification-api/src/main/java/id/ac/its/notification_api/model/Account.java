@@ -24,11 +24,11 @@ public class Account implements UserDetails {
     private String passwordHash;
     @OneToMany(mappedBy = "account")
     @Fetch(FetchMode.JOIN)
-    private List<Role> roles;
+    private List<Authority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return authorities;
     }
 
     @Override

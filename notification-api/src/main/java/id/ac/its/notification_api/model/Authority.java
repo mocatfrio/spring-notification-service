@@ -7,24 +7,24 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "role")
+@Table(name = "authority")
 @Data
-public class Role implements GrantedAuthority {
+public class Authority implements GrantedAuthority {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Name name;
+    private Role role;
     @ManyToOne(optional = false)
     private Account account;
 
     @Override
     public String getAuthority() {
-        return name.name();
+        return role.name();
     }
 
-    public enum Name {
+    public enum Role {
         CUSTOMER, ADMIN
     }
 }
