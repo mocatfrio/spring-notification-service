@@ -1,7 +1,8 @@
 package id.ac.its.notification_api.config;
 
-import id.ac.its.notification_api.filter.JwtAuthenticationFilter;
-import id.ac.its.notification_api.filter.JwtAuthorizationFilter;
+import id.ac.its.notification_api.filter.JwtLoginFilter;
+import id.ac.its.notification_api.filter.JwtRequestFilter;
+import id.ac.its.notification_api.model.Authority;
 import id.ac.its.notification_api.service.UserDetailsServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,17 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         var authenticationManager = authenticationManager();
-        var authenticationFilter = new JwtAuthenticationFilter(authenticationManager, secret);
-        var authorizationFilter = new JwtAuthorizationFilter(authenticationManager, secret, userDetailsService);
+        var loginFilter = new JwtLoginFilter(authenticationManager, secret);
+        var requestFilter = new JwtRequestFilter(authenticationManager, secret);
         http
                 .csrf().disable()
-                .addFilter(authenticationFilter)
-                .addFilter(authorizationFilter)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilter(loginFilter)
+                .addFilter(requestFilter)
                 .authorizeRequests()
-                .anyRequest().hasAuthority("ADMIN")
-                .and();
+                .anyRequest().hasAuthority(Authority.Role.ADMIN.name());
     }
 
     @Override

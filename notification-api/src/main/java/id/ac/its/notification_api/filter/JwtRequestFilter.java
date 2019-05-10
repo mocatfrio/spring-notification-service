@@ -5,8 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -14,15 +14,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+public class JwtRequestFilter extends BasicAuthenticationFilter {
     private final String secret;
-    private final UserDetailsService service;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, String secret, UserDetailsService service) {
-        super(authenticationManager);
+    public JwtRequestFilter(AuthenticationManager manager, String secret) {
+        super(manager);
         this.secret = secret;
-        this.service = service;
     }
 
     @Override
@@ -37,8 +37,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         var parsedToken = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token);
-        var username = parsedToken.getBody().getSubject();
-        var user = service.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(username, user.getPassword(), user.getAuthorities());
+        var claims = parsedToken.getBody();
+        var username = claims.getSubject();
+        @SuppressWarnings("unchecked")
+        var roles = (List<String>) claims.get("roles");
+        var authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return new UsernamePasswordAuthenticationToken(username, token, authorities);
     }
 }
