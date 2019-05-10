@@ -32,15 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         var authenticationManager = authenticationManager();
         var authenticationFilter = new JwtAuthenticationFilter(authenticationManager, secret);
-        var authorizationFilter = new JwtAuthorizationFilter(authenticationManager, secret);
+        var authorizationFilter = new JwtAuthorizationFilter(authenticationManager, secret, userDetailsService);
         http
                 .csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
                 .addFilter(authenticationFilter)
                 .addFilter(authorizationFilter)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .anyRequest().hasAuthority("ADMIN")
+                .and();
     }
 
     @Override
