@@ -38,7 +38,6 @@ public class ApnService {
                 .buildWithDefaultMaximumLength();
 
         var futures = devices.stream()
-                .filter(Device::isApn)
                 .map(Device::getToken)
                 .distinct()
                 .map(token -> new SimpleApnsPushNotification(token, bundleId, payload))

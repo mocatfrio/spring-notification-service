@@ -27,6 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(filter)
                 .authorizeRequests()
-                .anyRequest().hasAuthority("Admin");
+                .anyRequest().permitAll();
     }
 }

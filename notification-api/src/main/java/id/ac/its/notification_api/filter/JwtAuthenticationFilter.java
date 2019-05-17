@@ -42,13 +42,15 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         var context = SecurityContextHolder.getContext();
-        var authentication = authenticate(request);
-        context.setAuthentication(authentication);
+        var token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (token != null) {
+            var authentication = authenticate(token);
+            context.setAuthentication(authentication);
+        }
         chain.doFilter(request, response);
     }
 
-    private Authentication authenticate(HttpServletRequest request) {
-        var token = request.getHeader(HttpHeaders.AUTHORIZATION);
+    private Authentication authenticate(String token) {
         var claims = parse(token);
         var id = claims.get("userid", Integer.class);
         var role = claims.get("role", String.class);

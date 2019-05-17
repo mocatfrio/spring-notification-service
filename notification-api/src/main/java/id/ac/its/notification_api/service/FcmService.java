@@ -33,7 +33,6 @@ public class FcmService {
         if (devices.isEmpty()) return;
 
         var tokens = devices.stream()
-                .filter(Device::isFcm)
                 .map(Device::getToken)
                 .distinct()
                 .collect(Collectors.toUnmodifiableList());
