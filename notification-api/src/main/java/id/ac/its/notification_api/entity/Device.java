@@ -1,5 +1,6 @@
 package id.ac.its.notification_api.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.UUID;
 public class Device {
     @Id
     @GeneratedValue
+    @ApiModelProperty(readOnly = true)
     private UUID id;
     @Column(name = "token", nullable = false)
     @NotBlank
