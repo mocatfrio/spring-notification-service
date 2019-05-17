@@ -2,6 +2,7 @@ package id.ac.its.notification_api.controller;
 
 import id.ac.its.notification_api.service.ApnService;
 import id.ac.its.notification_api.service.FcmService;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class NotificationController {
     }
 
     @PostMapping("/user")
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataTypeClass = String.class)
     public void sendToUser(@RequestParam List<Integer> userIds,
                            @RequestParam String title,
                            @RequestParam String body) {
