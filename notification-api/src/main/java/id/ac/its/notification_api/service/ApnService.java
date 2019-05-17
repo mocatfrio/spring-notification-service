@@ -30,6 +30,8 @@ public class ApnService {
 
     public void sendNotification(Integer userId, String title, String body) {
         var devices = deviceDao.getByUserId(userId);
+        if (devices.isEmpty()) return;
+
         var payload = new ApnsPayloadBuilder()
                 .setAlertTitle(title)
                 .setAlertBody(body)

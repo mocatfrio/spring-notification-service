@@ -30,6 +30,8 @@ public class FcmService {
 
     public void sendNotification(Integer userId, String title, String body) {
         var devices = deviceDao.getByUserId(userId);
+        if (devices.isEmpty()) return;
+
         var tokens = devices.stream()
                 .filter(Device::isFcm)
                 .map(Device::getToken)
