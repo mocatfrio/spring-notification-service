@@ -5,6 +5,7 @@ import id.ac.its.notification_api.model.Device;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class DeviceController {
     }
 
     @PostMapping
-    public Device create(@ModelAttribute Device device) {
+    public Device create(@Valid @RequestBody Device device) {
         return dao.save(device);
     }
 
