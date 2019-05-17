@@ -20,10 +20,10 @@ public class NotificationController {
         this.fcmService = fcmService;
     }
 
-    @PostMapping("/account")
-    public void sendToAccounts(@RequestParam List<Integer> userIds,
-                               @RequestParam String title,
-                               @RequestParam String body) {
+    @PostMapping("/user")
+    public void sendToUser(@RequestParam List<Integer> userIds,
+                           @RequestParam String title,
+                           @RequestParam String body) {
         userIds.forEach(userId -> {
             apnService.sendNotification(userId, title, body);
             fcmService.sendNotification(userId, title, body);
