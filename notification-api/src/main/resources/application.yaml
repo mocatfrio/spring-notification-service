@@ -2,11 +2,11 @@ application:
   apn:
     certificate: classpath:files/certificate.p12
     password:
-    bundleId: id.ac.its.my.wali
+    bundle-id: id.ac.its.my.wali
   fcm:
     credentials: classpath:files/credentials.json
   security:
-    secret: ${SECRET:n2r5u8x/A%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQeThWmZq4t7w!z%C*F-J@NcRf}
+    public-key: classpath:files/jwt.pub
 server:
   port: ${PORT:8080}
 spring:
