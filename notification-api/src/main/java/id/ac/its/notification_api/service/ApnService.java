@@ -6,8 +6,8 @@ import com.turo.pushy.apns.util.ApnsPayloadBuilder;
 import com.turo.pushy.apns.util.SimpleApnsPushNotification;
 import com.turo.pushy.apns.util.concurrent.PushNotificationFuture;
 import id.ac.its.notification_api.config.ApnConfig;
-import id.ac.its.notification_api.dao.DeviceDao;
-import id.ac.its.notification_api.model.Device;
+import id.ac.its.notification_api.entity.Device;
+import id.ac.its.notification_api.repository.DeviceRepository;
 import io.netty.util.concurrent.GenericFutureListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,16 +20,16 @@ public class ApnService {
     private static final Logger LOG = LoggerFactory.getLogger(ApnService.class);
     private final ApnsClient client;
     private final String bundleId;
-    private final DeviceDao deviceDao;
+    private final DeviceRepository deviceRepository;
 
-    public ApnService(ApnsClient client, ApnConfig config, DeviceDao deviceDao) {
+    public ApnService(ApnsClient client, ApnConfig config, DeviceRepository deviceRepository) {
         this.client = client;
         this.bundleId = config.getBundleId();
-        this.deviceDao = deviceDao;
+        this.deviceRepository = deviceRepository;
     }
 
     public void sendNotification(Integer userId, String title, String body) {
-        var devices = deviceDao.findByUserIdAndTypeIn(userId, Device.Type.IOS);
+        var devices = deviceRepository.findByUserIdAndTypeIn(userId, Device.Type.IOS);
         if (devices.isEmpty()) return;
 
         var payload = new ApnsPayloadBuilder()

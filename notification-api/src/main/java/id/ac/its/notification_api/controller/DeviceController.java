@@ -1,7 +1,7 @@
 package id.ac.its.notification_api.controller;
 
-import id.ac.its.notification_api.dao.DeviceDao;
-import id.ac.its.notification_api.model.Device;
+import id.ac.its.notification_api.entity.Device;
+import id.ac.its.notification_api.repository.DeviceRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/device")
 public class DeviceController {
-    private final DeviceDao dao;
+    private final DeviceRepository dao;
 
-    public DeviceController(DeviceDao dao) {
+    public DeviceController(DeviceRepository dao) {
         this.dao = dao;
     }
 

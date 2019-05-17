@@ -5,8 +5,8 @@ import com.google.firebase.messaging.BatchResponse;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.MulticastMessage;
 import com.google.firebase.messaging.Notification;
-import id.ac.its.notification_api.dao.DeviceDao;
-import id.ac.its.notification_api.model.Device;
+import id.ac.its.notification_api.entity.Device;
+import id.ac.its.notification_api.repository.DeviceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,15 @@ public class FcmService {
     private static final Logger LOG = LoggerFactory.getLogger(FcmService.class);
     private final Executor executor = Executors.newCachedThreadPool();
     private final FirebaseMessaging messaging;
-    private final DeviceDao deviceDao;
+    private final DeviceRepository deviceRepository;
 
-    public FcmService(FirebaseMessaging messaging, DeviceDao deviceDao) {
+    public FcmService(FirebaseMessaging messaging, DeviceRepository deviceRepository) {
         this.messaging = messaging;
-        this.deviceDao = deviceDao;
+        this.deviceRepository = deviceRepository;
     }
 
     public void sendNotification(Integer userId, String title, String body) {
-        var devices = deviceDao.findByUserIdAndTypeIn(userId, Device.Type.WEB, Device.Type.ANDROID);
+        var devices = deviceRepository.findByUserIdAndTypeIn(userId, Device.Type.WEB, Device.Type.ANDROID);
         if (devices.isEmpty()) return;
 
         var tokens = devices.stream()

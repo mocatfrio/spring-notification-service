@@ -1,4 +1,4 @@
-package id.ac.its.notification_api.model;
+package id.ac.its.notification_api.entity;
 
 import lombok.Data;
 
