@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface DeviceDao extends JpaRepository<Device, UUID> {
-    List<Device> getByUserId(Integer userId);
+    List<Device> findByUserIdAndTypeIn(Integer userId, Device.Type... type);
 }

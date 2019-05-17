@@ -29,7 +29,7 @@ public class FcmService {
     }
 
     public void sendNotification(Integer userId, String title, String body) {
-        var devices = deviceDao.getByUserId(userId);
+        var devices = deviceDao.findByUserIdAndTypeIn(userId, Device.Type.WEB, Device.Type.ANDROID);
         if (devices.isEmpty()) return;
 
         var tokens = devices.stream()

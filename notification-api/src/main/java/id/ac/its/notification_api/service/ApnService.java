@@ -29,7 +29,7 @@ public class ApnService {
     }
 
     public void sendNotification(Integer userId, String title, String body) {
-        var devices = deviceDao.getByUserId(userId);
+        var devices = deviceDao.findByUserIdAndTypeIn(userId, Device.Type.IOS);
         if (devices.isEmpty()) return;
 
         var payload = new ApnsPayloadBuilder()
