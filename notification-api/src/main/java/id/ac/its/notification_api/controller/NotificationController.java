@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/notification")
@@ -22,12 +21,12 @@ public class NotificationController {
     }
 
     @PostMapping("/account")
-    public void sendToAccounts(@RequestParam("accounts") List<UUID> accountIds,
+    public void sendToAccounts(@RequestParam List<Integer> userIds,
                                @RequestParam String title,
                                @RequestParam String body) {
-        accountIds.forEach(accountId -> {
-            apnService.sendNotification(accountId, title, body);
-            fcmService.sendNotification(accountId, title, body);
+        userIds.forEach(userId -> {
+            apnService.sendNotification(userId, title, body);
+            fcmService.sendNotification(userId, title, body);
         });
     }
 }

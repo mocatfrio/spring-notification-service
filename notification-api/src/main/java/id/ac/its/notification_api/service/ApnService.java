@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,8 +28,8 @@ public class ApnService {
         this.deviceDao = deviceDao;
     }
 
-    public void sendNotification(UUID accountId, String title, String body) {
-        var devices = deviceDao.findByAccount_Id(accountId);
+    public void sendNotification(Integer userId, String title, String body) {
+        var devices = deviceDao.getByUserId(userId);
         var payload = new ApnsPayloadBuilder()
                 .setAlertTitle(title)
                 .setAlertBody(body)

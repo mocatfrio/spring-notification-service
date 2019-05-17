@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -29,8 +28,8 @@ public class FcmService {
         this.deviceDao = deviceDao;
     }
 
-    public void sendNotification(UUID accountId, String title, String body) {
-        var devices = deviceDao.findByAccount_Id(accountId);
+    public void sendNotification(Integer userId, String title, String body) {
+        var devices = deviceDao.getByUserId(userId);
         var tokens = devices.stream()
                 .filter(Device::isFcm)
                 .map(Device::getToken)

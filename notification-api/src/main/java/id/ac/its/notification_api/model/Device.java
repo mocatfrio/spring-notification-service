@@ -17,8 +17,8 @@ public class Device {
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type;
-    @ManyToOne(optional = false)
-    private Account account;
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 
     public boolean isFcm() {
         return Type.ANDROID == this.type || Type.WEB == this.type;
