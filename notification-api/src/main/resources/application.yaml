@@ -9,6 +9,8 @@ application:
     public-key: classpath:files/jwt.pub
 server:
   port: ${PORT:8080}
+  http2:
+    enabled: true
 spring:
   jpa:
     database: postgresql
