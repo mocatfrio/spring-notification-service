@@ -3,6 +3,7 @@ package id.ac.its.notification_api.controller;
 import id.ac.its.notification_api.entity.Device;
 import id.ac.its.notification_api.repository.DeviceRepository;
 import org.springframework.data.domain.Example;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/device")
+@RequestMapping(path = "/device", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeviceController {
     private final DeviceRepository dao;
 

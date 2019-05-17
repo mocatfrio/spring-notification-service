@@ -2,6 +2,7 @@ package id.ac.its.notification_api.controller;
 
 import id.ac.its.notification_api.service.ApnService;
 import id.ac.its.notification_api.service.FcmService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notification")
+@RequestMapping(path = "/notification", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NotificationController {
     private final ApnService apnService;
     private final FcmService fcmService;
