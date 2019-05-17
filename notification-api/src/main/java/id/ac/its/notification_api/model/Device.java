@@ -1,5 +1,6 @@
 package id.ac.its.notification_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,10 +21,12 @@ public class Device {
     @Column(name = "user_id", nullable = false)
     private Integer userId;
 
+    @JsonIgnore
     public boolean isFcm() {
         return Type.ANDROID == this.type || Type.WEB == this.type;
     }
 
+    @JsonIgnore
     public boolean isApn() {
         return Type.IOS == this.type;
     }
