@@ -47,16 +47,17 @@ class CoreController extends Controller
     }
 
     public function createNotif(Request $request){
-        $title = $request->input('title');
-        $body = $request->input('body');
+        $title = rawurlencode($request->input('title'));
+        $body = rawurlencode($request->input('body'));
         $userIds = $request->input('userIds');
         $userIds = array_map('intval', $userIds);
         $list = "";
+        
         foreach($userIds as $userId){
-            $list = $list . "" . $userId . ", ";
+            $list = $list . "" . $userId . ",";
         }
-        $list = substr($list, 0, -2);
-
+        $list = substr($list, 0, -1);
+        
 
         $request_headers = array();
         $request_headers[] = 'Authorization: '. $request->session()->get('jwt');
@@ -70,7 +71,8 @@ class CoreController extends Controller
         $data = (string) json_encode($data);
         // return $data;
         $url = "https://fp-notification-api.herokuapp.com/notification/user?title=". $title . "&body=".$body . "&userIds=".$list;
-        echo $url;
+        
+
         $response = $this->callAPI("POST", $url, false, $request_headers);
         
         $response = (string) $response;
